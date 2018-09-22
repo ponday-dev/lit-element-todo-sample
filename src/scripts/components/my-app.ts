@@ -8,12 +8,19 @@ export class MyApp extends LitElement {
 
     render() {
         return html`
-        <todo-input @add="${this.handleAdd.bind(this)}"></todo-input>
-        <todo-list
-            .todoList=${this.todo}
-            @toggleItem="${this.handleToggleItem.bind(this)}"
-            @delete="${this.handleDelete.bind(this)}"
-        ></todo-list>
+        <style>
+        .container {
+            width: 80vw;
+        }
+        </style>
+        <div class="container">
+            <todo-input @add="${this.handleAdd.bind(this)}"></todo-input>
+            <todo-list
+                .todoList=${this.todo}
+                @toggleItem="${this.handleToggleItem.bind(this)}"
+                @delete="${this.handleDelete.bind(this)}"
+            ></todo-list>
+        </div>
         `;
     }
 
@@ -24,7 +31,7 @@ export class MyApp extends LitElement {
         const targetId = event.detail.target.id;
         this.todo = this.todo.map(todo => {
             if (todo.id === targetId) {
-                return Object.assign({}, todo, { isCompleted: event.detail.target.value });
+                return Object.assign({}, todo, { isCompleted: event.detail.value });
             } else {
                 return todo;
             }

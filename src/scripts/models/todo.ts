@@ -1,12 +1,18 @@
 export interface Todo {
-    id: Symbol;
+    id: number;
     value: string;
     isCompleted: boolean;
 }
 
+const idGenerator = (function*() {
+    for(let i = 1; true; i++) {
+        yield i;
+    }
+})();
+
 export function createTodo(value: string): Todo {
     return {
-        id: Symbol(),
+        id: idGenerator.next().value,
         value,
         isCompleted: false
     };
